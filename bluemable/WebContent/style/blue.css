@@ -11,3 +11,13 @@
 .boaard_floor {
 	background: lightblue;
 }
+
+/*버튼 이미지 삭입*/
+input.img-button {
+   background: url("./" ) no-repeat;
+   border: none;
+   width: 32px;
+   height: 32px;
+   cursor: pointer;
+   z-index:6;
+ }

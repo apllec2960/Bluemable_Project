@@ -19,8 +19,9 @@ $(document).ready(function() {
 			let Sran = ran1 + ran2
 			
 			//#dice <-html 출력화면에 주사위 수를 나타냄.
-			$("#dice").val(Sran);
-			console.log($("#dice").attr("value"))
+			$("#dice1").val(ran1);
+			$("#dice2").val(ran2);
+			console.log("1, 2번 주사위 ::"+Sran)
 			if (beforePoint + Sran < 41) {
 				afterPoint = beforePoint + Sran;
 			} else {
