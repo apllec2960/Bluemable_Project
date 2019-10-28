@@ -7,60 +7,19 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- jQuery library -->
-<style>
-.marble_board {
-	background-image: url("./images/b1.jpg");
-	background-repeat: no-repeat;
-	background-position: center top;
-	background-size: 100%;
-	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
-}
-.no_border {
-	border: none !important; /*테두리 없음. (!important)무조건 적용 */
-}
-.boaard_floor {
-	background: lightblue;
-}
-</style>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function() {
 	
-	// 준비 완료 
-		console.log("ready");
+<!-- 부루마블 css 분리 -->
+<link rel="stylesheet" href="/bluemable/style/blue.css">
 
-		// 변수 초기화 
-		let beforePoint = 1;
-		let afterPoint = 1;
+<!-- 부루마블 자바스크립트 분리.-->
+<script src="/bluemable/script/game.js"></script>
 
-		// 플레이 버튼 클릭 
-		$("#play").click(function() {
-			let ran = Math.floor((Math.random() * 6) + 1); //1~6
-			console.log(ran);
-			$("#dice").val(ran);
-			console.log($("#dice").attr("value"))
-			if (beforePoint + ran < 41) {
-				afterPoint = beforePoint + ran;
-			} else {
-				afterPoint = beforePoint + ran - 40;
-			}
-			$("#point").val(afterPoint);
-			console.log($("#point").attr("value"))
-			// 말을 이동시킵니다.
-			let afterId = "#p" + afterPoint;
-			$(afterId).append('<b class="horses">◆1번마</b>');
-
-			let beforeId = "#p" + beforePoint;
-			$(beforeId).empty();
-
-			beforePoint = afterPoint;
-		});
-	})
-</script>
 </head>
 <body>
 	<div class="boaard_floor">
