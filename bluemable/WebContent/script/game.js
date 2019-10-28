@@ -9,20 +9,28 @@ $(document).ready(function() {
 
 		// 플레이 버튼 클릭 
 		$("#play").click(function() {
-			let ran = Math.floor((Math.random() * 6) + 1); //1~6
-			console.log(ran);
-			$("#dice").val(ran);
+			//1번째 주사위
+			let ran1 = Math.floor((Math.random() * 6) + 1); //1~6
+			console.log(ran1);
+			//2번째 주사위
+			let ran2 = Math.floor((Math.random() * 6) + 1); //1~6
+			console.log(ran2);
+			//주사위 합
+			let Sran = ran1 + ran2
+			
+			//#dice <-html 출력화면에 주사위 수를 나타냄.
+			$("#dice").val(Sran);
 			console.log($("#dice").attr("value"))
-			if (beforePoint + ran < 41) {
-				afterPoint = beforePoint + ran;
+			if (beforePoint + Sran < 41) {
+				afterPoint = beforePoint + Sran;
 			} else {
-				afterPoint = beforePoint + ran - 40;
+				afterPoint = beforePoint + Sran - 40;
 			}
 			$("#point").val(afterPoint);
 			console.log($("#point").attr("value"))
 			// 말을 이동시킵니다.
 			let afterId = "#p" + afterPoint;
-			$(afterId).append('<b class="horses">◆1번마</b>');
+			$(afterId).append('<b class="horses" >◆1번마</b>');
 
 			let beforeId = "#p" + beforePoint;
 			$(beforeId).empty();
