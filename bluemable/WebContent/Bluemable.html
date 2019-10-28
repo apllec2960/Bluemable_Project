@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Blue Marble</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<style>
+.marble_board {
+	background-image: url("./images/b1.jpg");
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: 100%;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+}
+.no_border {
+	border: none !important; /*테두리 없음. (!important)무조건 적용 */
+}
+.boaard_floor {
+	background: lightblue;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+	
+	// 준비 완료 
+		console.log("ready");
+
+		// 변수 초기화 
+		let beforePoint = 1;
+		let afterPoint = 1;
+
+		// 플레이 버튼 클릭 
+		$("#play").click(function() {
+			let ran = Math.floor((Math.random() * 6) + 1); //1~6
+			console.log(ran);
+			$("#dice").val(ran);
+			console.log($("#dice").attr("value"))
+			if (beforePoint + ran < 41) {
+				afterPoint = beforePoint + ran;
+			} else {
+				afterPoint = beforePoint + ran - 40;
+			}
+			$("#point").val(afterPoint);
+			console.log($("#point").attr("value"))
+			// 말을 이동시킵니다.
+			let afterId = "#p" + afterPoint;
+			$(afterId).append('<b class="horses">◆1번마</b>');
+
+			let beforeId = "#p" + beforePoint;
+			$(beforeId).empty();
+
+			beforePoint = afterPoint;
+		});
+	})
+</script>
+</head>
+<body>
+	<div class="boaard_floor">
+
+		<div class="container" align="center">
+
+			<h5>
+				Blue Marble <input id="play" type="button" value="주사위 play" /> 주사위
+				값 : <input id="dice" type="text" /> 이동 지점 : <input id="point"
+					type="text" />
+			</h5>
+
+			<div class="marble_board" align="center">
+				<div
+					style="padding-left: 14px; padding-right: 18px; padding-top: 14px">
+		<table class="table" style="text-align: center; color:tomato; font-weight: bold;">
+                  <tr height="158px">
+                     <td class="no_border">
+                        21<span id="p21"></span>
+                     </td>
+                     <td class="tno_border">
+                        22<span id="p22"></span>
+                     </td>
+                     <td class="no_border">
+                        23<span id="p23"></span>
+                     </td>
+                     <td class="no_border">
+                        24<span id="p24"></span>
+                     </td>
+                     <td class="no_border">
+                        25<span id="p25"></span>
+                     </td>
+                     <td class="no_border">
+                        26<span id="p26"></span>
+                     </td>
+                     <td class="no_border">
+                        27<span id="p27"></span>
+                     </td>
+                     <td class="no_border">
+                        28<span id="p28"></span>
+                     </td>
+                     <td class="no_border">
+                        29<span id="p29"></span>
+                     </td>
+                     <td class="no_border">
+                        30<span id="p30"></span>
+                     </td>
+                     <td class="no_border">
+                        31<span id="p31"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        20<span id="p20"></span>
+                     </td>
+                     <td class="no_border" colspan="9" rowspan="9">
+                        <!-- 빈칸 비우기  -->
+                     </td>
+                     <td class="no_border">
+                        32<span id="p32"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        19<span id="p19"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        33<span id="p33"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        18<span id="p18"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        34<span id="p34"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        17<span id="p17"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        35<span id="p35"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        16<span id="p16"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        36<span id="p36"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        15<span id="p15"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        37<span id="p37"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        14<span id="p14"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        38<span id="p38"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        13<span id="p13"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        39<span id="p39"></span>
+                     </td>
+                  </tr>
+                  
+                  <tr height="88px">
+                     <td class="no_border">
+                        12<span id="p12"></span>
+                     </td>
+                     
+                     <td class="no_border">
+                        40<span id="p40"></span>
+                     </td>
+                  </tr>
+               
+                  <tr height="158px">
+                     <td width="14%" class="no_border">
+                        11<span id="p11"></span>
+                     </td>
+                     <td width="7.7%" class="no_border">
+                        10<span id="p10"></span>
+                     </td>
+                     <td width="7.9%" class="no_border">
+                        9<span id="p9"></span>
+                     </td>
+                     <td width="7.7%" class="no_border">
+                        8<span id="p8"></span>
+                     </td>
+                     <td width="7.5%" class="no_border">
+                        7<span id="p7"></span>
+                     </td>
+                     <td width="8%" class="no_border">
+                        6<span id="p6"></span>
+                     </td>
+                     <td width="7.5%" class="no_border">
+                        5<span id="p5"></span>
+                     </td>
+                     <td width="7.8%" class="no_border">
+                        4<span id="p4"></span>
+                     </td>
+                     <td width="7.8%" class="no_border">
+                        3<span id="p3"></span>
+                     </td>
+                     <td width="7.8%" class="no_border">
+                        2<span id="p2"></span>
+                     </td>
+                     <td width="14%" class="no_border">
+                        <span id="p1">
+                           <b class="horses" id="1p">◆1번마</b>
+                           <b class="horses" id="2p">◆2번마</b>
+                           <b class="horses" id="3p">◆3번마</b>
+                           <b class="horses" id="4p">◆4번마</b>
+                        </span>
+                     </td>
+                  </tr>
+               </table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
