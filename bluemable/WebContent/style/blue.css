@@ -1,5 +1,5 @@
 .marble_board {
-	background-image: url("/bluemable/images/b1.jpg");
+	background-image: url("/bluemable/images/b2.png");
 	background-repeat: no-repeat;
 	background-position: center top;
 	background-size: 100%;
@@ -12,21 +12,28 @@
 	background: lightblue;
 }
 
-/*버튼 이미지 삭입*/
-input.img-button {
-   background: url("./" ) no-repeat;
-   border: none;
-   width: 32px;
-   height: 32px;
-   cursor: pointer;
-   z-index:6;
- }
  b {font-size:40px; }
  
  .rcorners {
   border-radius: 25px;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.1);
   padding: 20px;
   width: 200px;
   height: 150px;
+}
+
+/*원형 버튼 */
+.btn-circle {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 50px;
+  background-color: yellow;
+}
+.dice_size{
+	width: 130px;
+	height: 130px
 }

@@ -22,19 +22,25 @@ $(document).ready(function() {
 	// 준비 완료 
 		console.log("ready");
 
+		if (confirm("게임이 시작됩니다. 준비가 되면 확인, 취소 클릭시 창꺼짐! ") == true) { // 확인
+		} else { // 취소
+			window.close();
+			self.close();
+		}
+		
 		// 변수 초기화 
 		let beforePoint = 1;
 		let afterPoint = 1;
 
 	//------------------게임 시작 전------------------------
 		//게임 시작전 버튼 숨기기
-		$("#play").hide()
+		/*$("#play").hide()
 		$("#1P").hide()
 		$("#2P").hide()
 		$("#3P").hide()
 		$("#4P").hide()
 		$("#mydice11").hide()
-		$("#mydice22").hide()
+		$("#mydice22").hide()*/
 	//------------------게임 시작 후------------------------
 		// 플레이 버튼 클릭 
 		$("#play").click(function() {		
