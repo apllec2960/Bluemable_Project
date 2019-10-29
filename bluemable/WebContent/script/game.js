@@ -31,19 +31,19 @@ $(document).ready(function() {
 		// 변수 초기화 
 		let beforePoint = 1;
 		let afterPoint = 1;
-
-	//------------------게임 시작 전------------------------
-		//게임 시작전 버튼 숨기기
-		/*$("#play").hide()
-		$("#1P").hide()
-		$("#2P").hide()
-		$("#3P").hide()
-		$("#4P").hide()
-		$("#mydice11").hide()
-		$("#mydice22").hide()*/
+		let be1 =1;
+		let be2 =1;
+		let turn =1;
+		let afterPoint1 = 1;
+		let afterPoint2 = 1;
+		let beforePoint1 = 1;
+		let beforePoint2 = 1;
 	//------------------게임 시작 후------------------------
 		// 플레이 버튼 클릭 
 		$("#play").click(function() {		
+			
+			//게임이 시작되면 p1에 위치한 모든 말을 지움.
+			$("#p1").empty();
 			
 			//첫번째 주사위 값
 			let ran1=Math.floor((Math.random()*5)+1)
@@ -61,13 +61,14 @@ $(document).ready(function() {
 			$("#dice1").val(ran1);
 			$("#dice2").val(ran2);
 			console.log("1, 2번 주사위 ::"+Sran)
-			if (beforePoint + Sran < 41) {
+			/*if (beforePoint + Sran < 41) {
 				afterPoint = beforePoint + Sran;
 			} else {
 				afterPoint = beforePoint + Sran - 40;
 			}
 			$("#point").val(afterPoint);
 			console.log($("#point").attr("value"))
+			
 			// 말을 이동시킵니다.
 			let afterId = "#p" + afterPoint;
 			$(afterId).append('<b class="horses">🏇</b>');
@@ -75,6 +76,47 @@ $(document).ready(function() {
 			let beforeId = "#p" + beforePoint;
 			$(beforeId).empty();
 
-			beforePoint = afterPoint;
-		});
+			beforePoint = afterPoint;*/
+			if(turn ==1){
+				if(be1 +Sran<41){
+					afterPoint1 = be1 +Sran;
+				}else {
+					afterPoint1 = be1 + Sran - 40;
+				}
+				
+				$("#point").val(afterPoint1);
+				
+				// 말을 이동시킵니다.
+				let afterId = "#p" + afterPoint1;
+				$(afterId).append('<b class="horses">🏇</b>');
+
+				let beforeId = "#p" + beforePoint1;
+				$(beforeId).empty();
+
+				beforePoint1 = afterPoint1;
+				turn= turn+1;
+				console.log("turn1"+turn);
+			}else if(turn ==2){
+				if(be2 +Sran<41){
+					afterPoint2 = be2 +Sran;
+				}else{
+					afterPoint2 = be2 + Sran - 40;
+				}
+				
+				$("#point").val(afterPoint2);
+				console.log($("#point").attr("value"))
+				
+				// 말을 이동시킵니다.
+				let afterId = "#p" + afterPoint2;
+				$(afterId).append('<b class="horses">🚣</b>');
+
+				let beforeId = "#p" + beforePoint2;
+				$(beforeId).empty();
+
+				beforePoint2 = afterPoint2;
+				turn=1;
+				console.log("turn2"+turn);
+			}
+			
+		}); //라스트
 	})
