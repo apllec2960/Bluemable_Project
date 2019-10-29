@@ -16,20 +16,20 @@
 	
 <!-- 부루마블 css 분리 -->
 <link rel="stylesheet" href="/bluemable/style/blue.css">
-
 <!-- 부루마블 자바스크립트 분리.-->
 <script src="/bluemable/script/game.js"></script>
+<!-- 부루마블 주사위  -->
+<script src="/bluemable/script/dice.js"></script>
 
 </head>
 <body>
 	<div class="boaard_floor">
-
+		
 		<div class="container" align="center">
-
 			<h5>
 				Blue Marble  주사위
 				값 : <input id="dice1" style="width:40px"; type="text" /><input id="dice2" style="width:40px"; type="text" /> 
-				이동 지점 : <input id="point" style="width:40px";	type="text" />
+				이동 지점 : <input id="point" style="width:40px"; type="text" />
 			</h5>
 
 			<div class="marble_board" align="center">
@@ -76,10 +76,15 @@
                      <td class="no_border">
                         20<span id="p20"></span>
                      </td>
-                     <td class="no_border" colspan="9" rowspan="9">
+                     <td class="no_border rcorners" colspan="9" rowspan="9">
                         <!-- 빈칸 비우기  -->
                         <!-- 주사위 버튼 -->
-                        <input id="play" type="button" value="주사위 play" style="width:100px;height:100px"/>
+         				
+                     	<img id ="mydice11" name="mydice1" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif>
+                     	<img id ="mydice22" name="mydice2" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif>
+					
+							<input id="play" type="button" value="주사위 던지기">
+							
                      </td>
                      <td class="no_border">
                         32<span id="p32"></span>
@@ -199,10 +204,10 @@
                      </td>
                      <td width="14%" class="no_border">
                         <span id="p1">
-                           <b class="horses" id="1p">◆1번마</b>
-                           <b class="horses" id="2p">◆2번마</b>
-                           <b class="horses" id="3p">◆3번마</b>
-                           <b class="horses" id="4p">◆4번마</b>
+                        	<b class="horses" id="1p">🏇</b>
+                        	<b class="horses" id="2p">🚣</b>
+                        	<b class="horses" id="3p">🏊</b>
+                        	<b class="horses" id="4p">🚴</b>		
                         </span>
                      </td>
                   </tr>
