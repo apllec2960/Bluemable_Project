@@ -13,10 +13,10 @@
 }
 
  b {font-size:40px; }
- 
+ /*반투명*/
  .rcorners {
   border-radius: 25px;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0,0,0,0.5);
   padding: 20px;
   width: 200px;
   height: 150px;
@@ -33,7 +33,25 @@
   border-radius: 50px;
   background-color: yellow;
 }
+/*주사위 사이즈*/
 .dice_size{
 	width: 130px;
 	height: 130px
+}
+
+.in_middle{
+	align:center;
+}
+
+/* 안씀.
+td:hover  {
+	box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.6);
+	background: rgba(204, 153, 0, 0.2);
+	border-radius: 15px;
+}
+*/
+
+/*화면 안보이기*/
+.no_hover{
+	visibility: hidden;
 }
