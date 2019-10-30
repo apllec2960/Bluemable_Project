@@ -17,9 +17,9 @@ let face6=new Image()
 	face6.src="http://www.blueb.co.kr/SRC/javascript/image1/d6.gif"
 		
 //------------------------------(위)주사위 이미지 --------------
-// 플레이어별 말 목록
+// 플레이어별 말 목록 (이름 구분할것,
 let player=["<b class='horses' id='1p'>🏇</b>",
-			"<b class='horses' id='2p'>🚣</b><br>",
+			"<b class='horses' id='2p'>🚣</b>",
 			"<b class='horses' id='3p'>🏊</b>",
 			"<b class='horses' id='4p'>🚴</b>" ];		
 
@@ -41,12 +41,14 @@ let turn1p =0;
 let turn2p =0;
 let turn3p =0;
 let turn4p =0;
+let diceNum = 1;
+let person=0;
 
 $(document).ready(function() {
 	
 	$("#play").hide();
 	
-	// 준비 완료 
+		// 준비 완료 
 		console.log("ready");
 
 		/*if (confirm("게임이 시작됩니다. 준비가 되면 확인, 취소 클릭시 창꺼짐! ") == true) { // 확인
@@ -59,34 +61,32 @@ $(document).ready(function() {
 		
 		// 2인 플레이 
 		$("#2people").click( function() {		
-			let player = maxState = 2;
+			person = maxState = 2;
 			console.log("2인 스타트!");
 			alert("2인 스타트!");
-			gameStart(player);
+			gameStart(person);
 		});
 		
 		// 3인 플레이
 		$("#3people").click( function() {
-			let player = maxState = 3;
+			person = maxState = 3;
 			console.log("3인 스타트!");
 			alert("3인 스타트!");
-			gameStart(player);
+			gameStart(person);
 		});
 		
 		// 4인 플레이
 		$("#4people").click( function() {
-			let player = maxState = 4;
+			person = maxState = 4;
 			console.log("4인 스타트!");
 			alert("4인 스타트!");
-			gameStart(player);
+			gameStart(person);
 		});
 	
 		//------------------게임 시작 후------------------------
 		// 플레이 버튼 클릭 
+		if(diceNum ==1 || diceNum ==2){	
 		$("#play").click(function() {		
-			
-			//게임이 시작되면 p1에 위치한 모든 말을 지움.
-			$("#p1").empty();
 			
 			//랜덤으로 수를 뽑아  ran에 저장.
 			let ran1=Math.floor((Math.random()*6)+1);// 1~6
@@ -108,10 +108,12 @@ $(document).ready(function() {
 			if (beforePoint[state] + Sran < 41) {
 				afterPoint[state] = beforePoint[state] + Sran;
 				console.log("afterPoint[state]"+afterPoint[state]);
+				console.log("state"+state);
 			} else {
+				//beforePoint[state] + Sran 값이 40보다 크다면
 				afterPoint[state] = beforePoint[state] + Sran - 40;
 				console.log("afterPoint[state]"+afterPoint[state]);
-				
+				console.log("state"+state);
 				//각 말들의 턴 회수를 구함.
 				if(afterPoint[state] == afterPoint[0]){
 					turn1p+=1;
@@ -131,6 +133,7 @@ $(document).ready(function() {
 				//4p
 				}
 			}
+			
 			//이동위치.
 			$("#point").val(afterPoint[state]);
 
@@ -144,24 +147,38 @@ $(document).ready(function() {
 
 			beforePoint[state] = afterPoint[state];
 			
-			//1p~4p까지 이동했다면 1p부터 다시
-			if(state<3){
+			
+			//주사위가 더블이라면 주사위 던질 횟수 추가.
+			if(ran1 == ran2){
+				diceNum++;
+				console.log("diceNum따블!"+diceNum);
+				
+			//플레이어가 모두 돌면 다시 1번마부터 아니면 다음 플레이어
+			}else if(state<person-1){	
+				//console.log("person값::"+person)
 				state++;
 			}else{
 				state=0;
 			}
 			
+			
 		}); //라스트
+			//console.log("주사위 횟수 빼기 전"+diceNum);
+			diceNum--;
+			console.log("주사위 횟수 빼기 후"+diceNum);
+		}// if
+		
 	})
 	
 	//게임 시작 
-	function gameStart(palyer) {
+	function gameStart(person) {
+	//console.log("person"+person) 
 	$("#gameAlert").addClass("no_hover");
 	//console.log(this)	
 	$("#p1").empty();
 	$("#play").show();
-	for (var i = 0; i < palyer; i++) {
-	//console.log(player[i]);
+	for (let i = 0; i < person; i++) {
+	//console.log("person[i]"+i);
 		$("#p1").append(player[i]);
 	}	
 }
