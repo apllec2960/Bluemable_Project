@@ -41,7 +41,7 @@ let turn1p =0;
 let turn2p =0;
 let turn3p =0;
 let turn4p =0;
-let diceNum = 1;
+let diceNum = 0;
 let person=0;
 
 $(document).ready(function() {
@@ -51,11 +51,7 @@ $(document).ready(function() {
 		// 준비 완료 
 		console.log("ready");
 
-		/*if (confirm("게임이 시작됩니다. 준비가 되면 확인, 취소 클릭시 창꺼짐! ") == true) { // 확인
-		} else { // 취소
-			window.close();
-			self.close();
-		}*/
+	 
 		
 		//------------------플레이어 선택 --------------------
 		
@@ -85,7 +81,6 @@ $(document).ready(function() {
 	
 		//------------------게임 시작 후------------------------
 		// 플레이 버튼 클릭 
-		if(diceNum ==1 || diceNum ==2){	
 		$("#play").click(function() {		
 			
 			//랜덤으로 수를 뽑아  ran에 저장.
@@ -143,8 +138,8 @@ $(document).ready(function() {
 			
 			// 말을 지움.
 			let beforeId = "#p" + beforePoint[state];
-			$(beforeId).empty();
-
+			$(beforeId).children("b").remove("#"+(state+1)+"p");
+			
 			beforePoint[state] = afterPoint[state];
 			
 			
@@ -156,18 +151,37 @@ $(document).ready(function() {
 			//플레이어가 모두 돌면 다시 1번마부터 아니면 다음 플레이어
 			}else if(state<person-1){	
 				//console.log("person값::"+person)
+				diceNum=0;
 				state++;
 			}else{
+				diceNum=0;
 				state=0;
 			}
 			
+			// 세번 연속 더블일때, 무인도로 이동.
+			if(diceNum ==3){
+				afterPoint[state] = 11;
+				//이동위치.
+				$("#point").val(afterPoint[state]);
+
+				// 말을 이동시킵니다.
+				let afterId = "#p" + afterPoint[state];
+				$(afterId).append(player[state]);
+				
+				// 말을 지움.
+				let beforeId = "#p" + beforePoint[state];
+				$(beforeId).children("b").remove("#"+(state+1)+"p");
+				
+				beforePoint[state] = afterPoint[state];
+			}
 			
-		}); //라스트
-			//console.log("주사위 횟수 빼기 전"+diceNum);
-			diceNum--;
-			console.log("주사위 횟수 빼기 후"+diceNum);
-		}// if
+			if(afterId ==  "#p"+11){
+				if(ran1 == ran2){
+					
+				}
+			}
 		
+		}); //click
 	})
 	
 	//게임 시작 
