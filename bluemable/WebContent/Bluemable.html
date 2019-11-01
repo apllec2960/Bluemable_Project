@@ -17,22 +17,40 @@
 <!-- 부루마블 css 분리 -->
 <link rel="stylesheet" href="/bluemable/style/blue.css">
 <!-- 부루마블 자바스크립트 분리.-->
-<script src="/bluemable/script/game.js"></script>
-
+<!-- <script src="/bluemable/script/game.js"></script> -->
+<script src="/bluemable/script/test.js"></script>
 </head>
 <body>
 	<div class="boaard_floor">
-		
-		<div class="container" align="center">
-			<!-- 주사위 값 및 이동위치 출력판 -->
-			<h5>
+		<div class="diceBoard">
+		 <!-- 주사위 값 및 이동위치 출력판 -->
+			<h5 style="float:right">
 				<img id="mydice1" class="dice_size" name="mydice1" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif> 
 				<img id="mydice2" class="dice_size" name="mydice2" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif>
-				Blue Marble  주사위
-				값 : <input id="dice1" style="width:40px"; type="text" /><input id="dice2" style="width:40px"; type="text" /> 
+			<hr>
+				주사위 : <input id="dice1" style="width:40px"; type="text" /><input id="dice2" style="width:40px"; type="text" /> 
 				이동 지점 : <input id="point" style="width:40px"; type="text" />
 				<input id="play" type="button" value="주사위 던지기"  class="btn-circle">
 			</h5>
+		</div>
+		<div class="container" align="center">
+			<!-- 전광판 -->
+			<table class="table table-bordered table-striped" style="background-color: white">
+				<tr>
+					<td>플레이어</td>
+					<td>1번마 : 🏇	</td>
+					<td>2번마 : 🚣</td>
+					<td>3번마 : 🏊</td>
+					<td>4번마 : 🚴</td>
+				</tr>
+				<tr>
+					<td>자  본</td>
+					<td><input id="1pMoney" style="width:40px" type="text" readonly/>만원</td>
+					<td><input id="2pMoney" style="width:40px" type="text" readonly/>만원</td>
+					<td><input id="3pMoney" style="width:40px" type="text" readonly/>만원</td>
+					<td><input id="4pMoney" style="width:40px" type="text" readonly/>만원</td>
+				</tr>
+			</table>
 			<!-- 보드판 -->
 			<div class="marble_board" align="center">
 				<div

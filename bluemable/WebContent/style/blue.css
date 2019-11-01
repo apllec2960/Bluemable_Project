@@ -24,19 +24,19 @@
 
 /*원형 버튼 */
 .btn-circle {
-  width: 100px;
-  height: 100px;
+  width: 30px;
+  height: 30px;
   text-align: center;
   padding: 6px 0;
   font-size: 12px;
   line-height: 1.42;
-  border-radius: 50px;
+  border-radius: 15px;
   background-color: yellow;
 }
 /*주사위 사이즈*/
 .dice_size{
-	width: 130px;
-	height: 130px
+	width: 60px;
+	height: 60px
 }
 
 .in_middle{
@@ -54,4 +54,12 @@ td:hover  {
 /*화면 안보이기*/
 .no_hover{
 	visibility: hidden;
+}
+/* 회색판  */
+.diceBoard{
+	float : right;
+	background: rgba(0,0,0,0.5);
+	text-align: center;
+	background-color: silver;
+	
 }
