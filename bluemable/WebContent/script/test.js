@@ -17,65 +17,103 @@ let face6=new Image()
 	face6.src="http://www.blueb.co.kr/SRC/javascript/image1/d6.gif"
 		
 //------------------------------(위)주사위 이미지 --------------
-// 플레이어별 말 목록 (이름 구분할것,
+// 플레이어별 말 목록 ,
 let player=["<b class='horses' id='1p'>🏇</b>",
 			"<b class='horses' id='2p'>🚣</b>",
 			"<b class='horses' id='3p'>🏊</b>",
 			"<b class='horses' id='4p'>🚴</b>" ];		
-
+//건물 목록
+let Bbuild=["<a class='horses' id='1p'>🚩</a>",
+			"<a class='horses' id='1p'>🏠</a>",
+			"<a class='horses' id='1p'>🏢</a>",
+			"<a class='horses' id='1p'>🏰</a>"]
 
 //---------------- 변수 초기화 ---------------------------	
 //말이 원래 있었던 장소의 번호 배열 초기화 최대 4개 까지 
 let beforePoint = [1, 1, 1, 1];
 // 말이 움직일 장소의 번호 배열 초기화 최대 4개까지 (플레이어 현 위치)
 let afterPoint = [1, 1, 1, 1];
-
+//플레이어가 갖고있는 도시 구분
+let dCity = [[	
+					0, //1p 구매여부 (0:미소유 1:소유지 땅 )
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				],
+				[	
+					0, //2p 구매여부 (0:미소유 1:소유지 땅 )
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				],
+				[	
+					0, //3p 구매여부 (0:미소유 1:소유지 땅 )
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				],
+				[	
+					0, //4p 구매여부 (0:미소유 1:소유지 땅 )
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+					0, 0, 0, 0, 0, 0, 0, 0, 0
+				]];
 //플레이어수
 let person=0;
 //플레이어의 돈
 let Pprice=[300,300,300,300];
 
-//도시
-let cName = ["출발지점!","타이베이","황금열쇠","베이징","마닐라","제주","싱가포르","화금열쇠","카이로","이스탄불","무인도",
-	"아테네","황금열쇠","코펜하겐","스톡홀름","콩코드여객기","베른","황금열쇠","베를린","오타와","사회복지기금 접수처",
-	"부에노스아이레스","황금열쇠","상파올루","시드니","부산","하와이","리스본","퀸엘리자베스호","마드리드","우주여행",
-	"도쿄","컬럼비아호","파리","로마","황금열쇠","런던","뉴욕","사회복지기금","서울"
+//출발지점 + 국가 이름, 땅 값, 별장1 값, 별장2 값, 빌딩 , 호텔 값,여부 초기화
+let lands = [[	"출발지",
+					"타이베이","황금열쇠","베이징","마닐라","제주","싱가포르","화금열쇠","카이로","이스탄불","무인도",
+					"아테네","황금열쇠","코펜하겐","스톡홀름","콩코드여객기","베른","황금열쇠","베를린","오타와","사회복지기금 접수처",
+					"부에노스아이레스","황금열쇠","상파올루","시드니","부산","하와이","리스본","퀸엘리자베스호","마드리드","우주여행",
+					"도쿄","컬럼비아호","파리","로마","황금열쇠","런던","뉴욕","사회복지기금","서울"
+				],
+				[	20,	// 땅값 출발지점은 월급을 준다.
+					5, 0, 8, 8,20, 10, 0, 10, 12, 0,
+					14, 0, 16, 16, 20, 18, 0, 18, 20, 0,
+					22, 0, 24, 24, 50, 26, 26, 30, 28, 20,
+					30, 45, 32, 32, 0, 35, 35, 15 ,100
+				],
+				[	0, 	//별장1
+					5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 
+					5, 5, 5, 5, 6, 6, 6, 6, 6, 6,
+					6, 6, 6, 6, 7, 7, 7, 7, 7, 7,
+					7, 7, 7, 7, 7, 7, 7, 7, 7
+				],
+				[	0,	//별장2
+					5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 
+					5, 5, 5, 5, 6, 6, 6, 6, 6, 6,
+					6, 6, 6, 6, 7, 7, 7, 7, 7, 7,
+					7, 7, 7, 7, 7, 7, 7, 7, 7
+				],
+				[	0,	//빌딩
+					18, 0, 18, 18, 18, 18, 18, 18, 18, 0, 
+					25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 
+					30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 
+					35, 35, 35, 35, 35, 35, 35, 35, 35, 
+				],
+				[	0,	//호텔
+					35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
+					50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 
+					75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 
+					75, 75, 75, 100, 100, 100, 105, 105, 110
+				],
+				[	
+					2, //구매여부 (0:빈땅 1:소유지 땅 2:구매 불가)
+					0, 2, 0, 0, 0, 0, 0, 0, 0, 2,
+					2, 0, 0, 0, 0, 0, 2, 0, 0, 2,
+					0, 2, 0, 0, 0, 0, 0, 0, 0, 2,
+					0, 0, 0, 0, 2, 0, 0, 2, 0
+				]
 ];
-
-let country=[20,	// 땅값 출발지점은 월급을 준다.
-	5, 0, 8, 8,20, 10, 0, 10, 12, 0,
-	14, 0, 16, 16, 20, 18, 0, 18, 20, 0,
-	22, 0, 24, 24, 50, 26, 26, 30, 28, 20,
-	30, 45, 32, 32, 0, 35, 35, 15 ,100
-];
-
-let villa=[	0, 	//별장1
-	5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 
-	5, 5, 5, 5, 6, 6, 6, 6, 6, 6,
-	6, 6, 6, 6, 7, 7, 7, 7, 7, 7,
-	7, 7, 7, 7, 7, 7, 7, 7, 7
-];
-
-let villa2=[0,	//별장2
-	5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 
-	5, 5, 5, 5, 6, 6, 6, 6, 6, 6,
-	6, 6, 6, 6, 7, 7, 7, 7, 7, 7,
-	7, 7, 7, 7, 7, 7, 7, 7, 7
-];
-
-let build=[	0,	//빌딩
-	18, 0, 18, 18, 18, 18, 18, 18, 18, 0, 
-	25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 
-	30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 
-	35, 35, 35, 35, 35, 35, 35, 35, 35, 
-];
-
-let hotel=[	0,	//호텔
-	35, 35, 35, 35, 35, 35, 35, 35, 35, 35,
-	50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 
-	75, 75, 75, 75, 75, 75, 75, 75, 75, 75, 
-	75, 75, 75, 100, 100, 100, 105, 105, 110
-];
+//건물 변수.
+let tower = 0;
 
 //1p~4p 각각의 턴 회수
 let Pturn =[0,0,0,0];
@@ -94,11 +132,10 @@ let diceNum = 0;
 
 // ----------진행 준비 -------------------------
 $(document).ready(function() {
-	
 		// 준비 완료 
 		console.log("ready");
 
-	 
+		$("#buuild").hide();
 		
 		//------------------플레이어 선택 --------------------
 		
@@ -125,19 +162,52 @@ $(document).ready(function() {
 			alert("4인 스타트!");
 			gameStart(person);
 		});
+		//-------------- 도시 및 건물 구매 ---------------------
+		// 도시
+		$("#country").click(function(){
+			tower = 0;
+			console.log("도시 선택!");
+			buyCountry(tower)
+			$("#buuild").hide();
+		})
+		
+		// 별장
+		$("#villa").click(function(){
+			tower = 1;
+			console.log("별장 선택!");
+			buyCountry(tower)
+			$("#buuild").hide();
+		})
+		
+		// 빌딩
+		$("#building").click(function(){
+			tower = 2;
+			console.log("빌딩 선택!");
+			buyCountry(tower)
+			$("#buuild").hide();
+		})
+		
+		// 호텔
+		$("#hotel").click(function(){
+			tower = 3;
+			console.log("호텔 선택!");
+			buyCountry(tower)
+			$("#buuild").hide();
+		})
 		
 		//--------------플레이어 전광판 ---------------------
 		$("#1pMoney").val(Pprice[0]);
-		console.log(Pprice[0]);
+		//console.log(Pprice[0]);
 		$("#2pMoney").val(Pprice[1]);
 		$("#3pMoney").val(Pprice[2]);
 		$("#4pMoney").val(Pprice[3]);
 		//------------------게임 시작 후------------------------
 		// 플레이 버튼 클릭 
-		$("#play").click(function() {		
+		$("#play").click(function() {	
+			console.log((1+state)+"번마");
 			//랜덤으로 수를 뽑아  ran에 저장.
-			let ran1=Math.floor((Math.random()*2)+1);// 1~6
-			let ran2=Math.floor((Math.random()*1)+1);
+			let ran1=Math.floor((Math.random()*6)+1);// 1~6
+			let ran2=Math.floor((Math.random()*6)+1);
 			
 			//주사위 이미지  출력.
 			document.images["mydice1"].src=eval("face"+ran1+".src")
@@ -149,22 +219,28 @@ $(document).ready(function() {
 			//#dice <-html 출력화면에 주사위 수를 나타냄.
 			$("#dice1").val(ran1);
 			$("#dice2").val(ran2);
-			console.log("1, 2번 주사위 ::"+Sran)
+			console.log("주사위 합 ::"+Sran)
 			
 			//위치 배열에 위치 지정.
 			if (beforePoint[state] + Sran < 41) {
 				afterPoint[state] = beforePoint[state] + Sran;
-				console.log("afterPoint[state]"+afterPoint[state]);
-				console.log("state"+state);
+				console.log("이동지점"+afterPoint[state]);
+				
+				
 			} else {
 				//beforePoint[state] + Sran 값이 40보다 크다면
 				afterPoint[state] = beforePoint[state] + Sran - 40;
-				console.log("afterPoint[state]"+afterPoint[state]);
-				console.log("state"+state);
+				console.log("이동지점"+afterPoint[state]);
+				
 				//각 말들의 턴 회수를 구함.
 					Pturn[state]++;
-					console.log(player[state]+"의 턴 수"+Pturn);
-				//1p
+					console.log("플레이어별 턴 수 ["+Pturn+"]");
+				
+				//플레이어 월급
+					console.log("입금전 잔액"+Pprice[state]);
+					Pprice[state] +=lands[1][0] ;
+					console.log("월급이 지급되었습니다 입금후 잔액"+Pprice[state]);
+					
 			}
 			
 			//이동위치.
@@ -194,7 +270,10 @@ $(document).ready(function() {
 				state++;
 			}else{
 				diceNum=0;
-				//턴을 넘긴다
+				//턴 수
+				turn++;
+				console.log("전체 턴수 ::"+ turn);
+				//1p에게 턴을 넘긴다
 				state=0;
 			}
 			
@@ -214,7 +293,10 @@ $(document).ready(function() {
 				
 				beforePoint[state] = afterPoint[state];
 			}
-		
+			//도시 알림!(소유지 여부 및 건물 구매창)
+			alertCountry(state)
+			
+			console.log("---------player turn end--------")
 		}); //click
 	})
 	
@@ -230,7 +312,140 @@ function gameStart(person) {
 	}	
 }
 
-function buyCountry(state){
+//각각의 도시에 도착했을때 구매 및 경유비를 지출하는 함수.
+function alertCountry(state){
+	//도시
+	for(let i=0; i<lands[0].length; i++){
+		if(i == afterPoint[state]){
+			console.log("땅 :"+lands[0][i-1])
+			//alert(lands[0][i-1]+"땅 구매?"); <--이동하기전에 먼저 알림되는 문제
+			//1.알림창으로 어디에 도착했는지 알림.
+			if(lands[6][i-1]==0){
+				console.log("구매가능"); // 소유자가 없을때 
+				$("#buuild").show()
+			}else if(lands[6][i-1]==1){
+				console.log("소유자 있음"); // 소유자가 있을때 (안에서 한번더 조건걸기(내가 산건지 아닌지))
+				$("#buuild").hide();
+				//1.소유자 확인(몇번째 플레이어 인지)
+				//2.비용 지출()
+			}else{
+				console.log("구매할수 없는 지역입니다.")
+				$("#buuild").hide();
+				//1.비용을 내야하는곳인지
+				//2.그냥 통과가 가능한 곳인지
+				//3.다른 기능이 있는지.
+			}
+		}
+		
+	}
 	
+}
+
+function buyCountry(tower){
+	alertCountry(state);
+	console.log("buyCounter() 실행");
+	// 플레이어는 건물 구매.
+	/*
+	 * console.log("건물"+tower); console.log((1+state)+"번마");
+	 * console.log("위치값"+afterPoint[state])
+	 */
+	i = afterPoint[state];
+	// console.log("i는"+i);
+
+	// 땅 구매 비용지불
+	if(tower ==0){
+		//땅
+		console.log("건물번호"+tower)
+		if(Pprice[state] >= lands[1][i]){
+			console.log("내 자본"+Pprice[state]);
+			console.log("건물가격"+lands[1][i])
+			Pprice[state] = Pprice[state] - lands[1][i];
+			dCity[state][i] = dCity[state][i] +1;
+			console.log("내 소유지"+dCity[state][i]);
+				let afterId = "#p" + afterPoint[state];
+					$(afterId).append(Bbuild[tower]);
+					console.log("위치"+afterId);
+						console.log("땅 구매완료")
+						console.log("구매후 잔액"+Pprice[state]);
+						//--------------플레이어 자금초기화  ---------------------
+						$("#1pMoney").val(Pprice[0]);
+						//console.log(Pprice[0]);
+						$("#2pMoney").val(Pprice[1]);
+						$("#3pMoney").val(Pprice[2]);
+						$("#4pMoney").val(Pprice[3]);
+						
+			}else{
+				alert("돈이 부족합니다.")
+				console.log("돈이 부족합니다");
+				return
+		}
+		
+	}else if(tower ==1){
+		//별장
+		if(Pprice[state] >= lands[2][i]){
+			console.log("내 자본"+Pprice[state]);
+			console.log("건물가격"+lands[2][i])
+			Pprice[state] = Pprice[state] - lands[2][i];
+				let afterId = "#p" + afterPoint[state];
+					$(afterId).append(Bbuild[tower]);
+						console.log("땅 구매완료")
+						console.log("구매후 잔액"+Pprice[state]);
+						//--------------플레이어 자금초기화 ---------------------
+						$("#1pMoney").val(Pprice[0]);
+						//console.log(Pprice[0]);
+						$("#2pMoney").val(Pprice[1]);
+						$("#3pMoney").val(Pprice[2]);
+						$("#4pMoney").val(Pprice[3]);
+			}else{
+				alert("돈이 부족합니다.")
+				console.log("돈이 부족합니다");
+				return
+			}
+	}else if(tower ==2){
+		//빌딩
+		if(Pprice[state] >= lands[4][i]){
+			console.log("내 자본"+Pprice[state]);
+			console.log("건물가격"+lands[4][i])
+			Pprice[state] = Pprice[state] - lands[4][i];
+				let afterId = "#p" + afterPoint[state];
+					$(afterId).append(Bbuild[tower]);
+						console.log("땅 구매완료")
+						console.log("구매후 잔액"+Pprice[state]);
+						//--------------플레이어 자금초기화  ---------------------
+						$("#1pMoney").val(Pprice[0]);
+						//console.log(Pprice[0]);
+						$("#2pMoney").val(Pprice[1]);
+						$("#3pMoney").val(Pprice[2]);
+						$("#4pMoney").val(Pprice[3]);
+			}else{
+				alert("돈이 부족합니다.")
+				console.log("돈이 부족합니다");
+				return
+			}
+	}else{
+		//호텔
+		if(Pprice[state] >= lands[5][i]){
+			console.log("내 자본"+Pprice[state]);
+			console.log("건물가격"+lands[5][i])
+			Pprice[state] = Pprice[state] - lands[5][i];
+				let afterId = "#p" + afterPoint[state];
+					$(afterId).append(Bbuild[tower]);
+						console.log("땅 구매완료")
+						console.log("구매후 잔액"+Pprice[state]);
+						//--------------플레이어 자금초기화 ---------------------
+						$("#1pMoney").val(Pprice[0]);
+						//console.log(Pprice[0]);
+						$("#2pMoney").val(Pprice[1]);
+						$("#3pMoney").val(Pprice[2]);
+						$("#4pMoney").val(Pprice[3]);
+			}else{
+				alert("돈이 부족합니다.")
+				console.log("돈이 부족합니다");
+				return
+			}
+	}
+	// 건물 세우기
+	// 끝
+	console.log("--------------end-------------")
 }
 	

@@ -22,17 +22,38 @@
 </head>
 <body>
 	<div class="boaard_floor">
+	<!-- 주사위 값 및 이동위치 출력판 -->
 		<div class="diceBoard">
-		 <!-- 주사위 값 및 이동위치 출력판 -->
-			<h5 style="float:right">
+			<h5>
 				<img id="mydice1" class="dice_size" name="mydice1" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif> 
 				<img id="mydice2" class="dice_size" name="mydice2" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif>
 			<hr>
 				주사위 : <input id="dice1" style="width:40px"; type="text" /><input id="dice2" style="width:40px"; type="text" /> 
-				이동 지점 : <input id="point" style="width:40px"; type="text" />
-				<input id="play" type="button" value="주사위 던지기"  class="btn-circle">
+				이동 지점 : <input id="point" style="width:40px"; type="text" readonly/>
+				<input id="play" type="button" value="🎲"  class="btn-circle" readonly/>
+			</h5>
+			 <!--건물 땅구매 및 건물 구매여부-->
+			<h5 id="buuild">
+				<p>	
+					<button type="button" class="btn btn-warning"
+						 id="country">도시 🚩</button>
+					&nbsp;
+					<button type="button" class="btn btn-warning"
+						 id="villa">별장 🏠</button>
+					&nbsp;
+					<button type="button" class="btn btn-success"
+						 id="building">빌딩 🏢</button>
+					&nbsp;
+					<button type="button" class="btn btn-primary"
+						id="hotel">호텔 🏰</button>
+					&nbsp;
+				</p>
 			</h5>
 		</div>
+		</div>
+		
+		
+		
 		<div class="container" align="center">
 			<!-- 전광판 -->
 			<table class="table table-bordered table-striped" style="background-color: white">
@@ -90,7 +111,7 @@
 								<button id="start" class="btn btn-danger" data-toggle="modal" data-target="#startGame">
 									<b> 게임 시작 ! </b>
 								</button> <!-- 설명 -->
-								<h4 class="horses">1p 🎠 2p 🚀 3p 🛫 4p 🚁</h4> 
+								<h4 class="horses">1p 🏇 2p 🚣 3p 🏊 4p 🚴</h4> 
 								<br> 
 								<b>
 									게임을 시작하시오!	
