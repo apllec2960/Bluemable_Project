@@ -35,37 +35,66 @@ let beforePoint = [1, 1, 1, 1];
 let afterPoint = [1, 1, 1, 1];
 //플레이어가 갖고있는 도시 구분
 let dCity = [[	
-					0, //1p 구매여부 (0:미소유 1:소유지 땅 )
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0
-				],
-				[	
-					0, //2p 구매여부 (0:미소유 1:소유지 땅 )
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0
-				],
-				[	
-					0, //3p 구매여부 (0:미소유 1:소유지 땅 )
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0
-				],
-				[	
-					0, //4p 구매여부 (0:미소유 1:소유지 땅 )
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0, 0, 0
-				]];
+				0, //1p (1: 구매한 도시)
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			],
+			[	
+				0, //2p 
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			],
+			[	
+				0, //3p 
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			],
+			[	
+				0, //4p 
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			]];
 //플레이어수
 let person=0;
 //플레이어의 돈
 let Pprice=[300,300,300,300];
+//통행료
+let tollFee=[[	
+				0, //1p 
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			],
+			[	
+				0, //2p 
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 2, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			],
+			[	
+				0, //3p 
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			],
+			[	
+				0, //4p 
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0
+			]];
 
 //출발지점 + 국가 이름, 땅 값, 별장1 값, 별장2 값, 빌딩 , 호텔 값,여부 초기화
 let lands = [[	"출발지",
@@ -106,8 +135,8 @@ let lands = [[	"출발지",
 				],
 				[	
 					2, //구매여부 (0:빈땅 1:소유지 땅 2:구매 불가)
-					0, 2, 0, 0, 0, 0, 0, 0, 0, 2,
-					2, 0, 0, 0, 0, 0, 2, 0, 0, 2,
+					0, 2, 0, 0, 0, 0, 2, 0, 0, 2,
+					0, 2, 0, 0, 0, 0, 2, 0, 0, 0,
 					0, 2, 0, 0, 0, 0, 0, 0, 0, 2,
 					0, 0, 0, 0, 2, 0, 0, 2, 0
 				]
@@ -136,6 +165,9 @@ $(document).ready(function() {
 		console.log("ready");
 
 		$("#buuild").hide();
+		$("#buuild1").hide();
+		$("#buuild2").hide();
+		$("#buuild3").hide();
 		
 		//------------------플레이어 선택 --------------------
 		
@@ -201,10 +233,14 @@ $(document).ready(function() {
 		$("#2pMoney").val(Pprice[1]);
 		$("#3pMoney").val(Pprice[2]);
 		$("#4pMoney").val(Pprice[3]);
-		//------------------게임 시작 후------------------------
+		
+		$("#Cturn").val(turn);
+		//------------------게임 시작 후------------------------		
+		
 		// 플레이 버튼 클릭 
 		$("#play").click(function() {	
 			console.log((1+state)+"번마");
+			$("#Cturn").val(turn);
 			//랜덤으로 수를 뽑아  ran에 저장.
 			let ran1=Math.floor((Math.random()*6)+1);// 1~6
 			let ran2=Math.floor((Math.random()*6)+1);
@@ -214,7 +250,7 @@ $(document).ready(function() {
 			document.images["mydice2"].src=eval("face"+ran2+".src")
 			
 			//Sran : 주사위 수 총합.
-			let Sran = ran1 + ran2
+			let Sran = ran1 + ran2;
 			
 			//#dice <-html 출력화면에 주사위 수를 나타냄.
 			$("#dice1").val(ran1);
@@ -234,7 +270,7 @@ $(document).ready(function() {
 				
 				//각 말들의 턴 회수를 구함.
 					Pturn[state]++;
-					console.log("플레이어별 턴 수 ["+Pturn+"]");
+					console.log("플레이어별 턴 수 ["+Pturn[state]+"]");
 				
 				//플레이어 월급
 					console.log("입금전 잔액"+Pprice[state]);
@@ -293,6 +329,7 @@ $(document).ready(function() {
 				
 				beforePoint[state] = afterPoint[state];
 			}
+				
 			//도시 알림!(소유지 여부 및 건물 구매창)
 			alertCountry(state)
 			
@@ -300,6 +337,7 @@ $(document).ready(function() {
 		}); //click
 	})
 	
+/*-----------------------------------------------아래 함수-------------------------------------------------*/
 //게임 시작 
 function gameStart(person) {
 	//console.log("person"+person) 
@@ -326,11 +364,19 @@ function alertCountry(state){
 			}else if(lands[6][i-1]==1){
 				console.log("소유자 있음"); // 소유자가 있을때 (안에서 한번더 조건걸기(내가 산건지 아닌지))
 				$("#buuild").hide();
-				//1.소유자 확인(몇번째 플레이어 인지)
-				//2.비용 지출()
+				//1.소유자 확인(몇번째 플레이어 인지)//2.비용 지출()
+				for(let n=0; n<4; n++){
+					if(dCity[n][i-1] ==1){
+						Pprice[state]= Pprice[state] - tollFee[n][i-1];
+						Pprice[n] = Pprice[n] + tollFee[n][i-1];
+						console.log("통행료지불"+Pprice[state]);
+						console.log("통행료 받음"+Pprice[n]);
+					}
+				}
 			}else{
 				console.log("구매할수 없는 지역입니다.")
 				$("#buuild").hide();
+
 				//1.비용을 내야하는곳인지
 				//2.그냥 통과가 가능한 곳인지
 				//3.다른 기능이 있는지.
@@ -341,17 +387,24 @@ function alertCountry(state){
 	
 }
 
+// 플레이어는 건물 선택 및 구매.
 function buyCountry(tower){
 	alertCountry(state);
 	console.log("buyCounter() 실행");
-	// 플레이어는 건물 구매.
 	/*
 	 * console.log("건물"+tower); console.log((1+state)+"번마");
 	 * console.log("위치값"+afterPoint[state])
 	 */
-	i = afterPoint[state];
+	i = afterPoint[state] -1;
 	// console.log("i는"+i);
 
+	/********************************
+	*추가 해야할 기능*
+	*처음엔 땅만 살수 있다.
+	*그 후엔 건물 하나씩만 구매 가능(별장만 2개 가능)
+	*다른 유저가 도착하면 구매 불가.
+	*******************************/
+	
 	// 땅 구매 비용지불
 	if(tower ==0){
 		//땅
@@ -359,17 +412,26 @@ function buyCountry(tower){
 		if(Pprice[state] >= lands[1][i]){
 			console.log("내 자본"+Pprice[state]);
 			console.log("건물가격"+lands[1][i])
+			
+			//건물비용 지불
 			Pprice[state] = Pprice[state] - lands[1][i];
-			dCity[state][i] = dCity[state][i] +1;
-			console.log("내 소유지"+dCity[state][i]);
+			//통행료 저장
+			tollFee[state] = tollFee[state]+ lands[1][i]
+			//구매한 도시지명 저장.
+			dCity[state][i] = dCity[state][i] + 1;
+			//도시 구매 유무
+			lands[6][i]+=1;
+			
+			console.log("[1:내도시]"+dCity[state][i]);
+			console.log("[1:구매됨]"+lands[6][i]);
+			
 				let afterId = "#p" + afterPoint[state];
 					$(afterId).append(Bbuild[tower]);
-					console.log("위치"+afterId);
+						console.log("위치"+afterId);
 						console.log("땅 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
 						//--------------플레이어 자금초기화  ---------------------
 						$("#1pMoney").val(Pprice[0]);
-						//console.log(Pprice[0]);
 						$("#2pMoney").val(Pprice[1]);
 						$("#3pMoney").val(Pprice[2]);
 						$("#4pMoney").val(Pprice[3]);
@@ -382,66 +444,84 @@ function buyCountry(tower){
 		
 	}else if(tower ==1){
 		//별장
-		if(Pprice[state] >= lands[2][i]){
+		if( (Pprice[state] >= lands[2][i])&&(Pturn[state]>=1)){
 			console.log("내 자본"+Pprice[state]);
 			console.log("건물가격"+lands[2][i])
+			
+			//건물비용 지불
 			Pprice[state] = Pprice[state] - lands[2][i];
+			//통행료 저장
+			tollFee[state] = tollFee[state]+ lands[2][i]
 				let afterId = "#p" + afterPoint[state];
 					$(afterId).append(Bbuild[tower]);
 						console.log("땅 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
 						//--------------플레이어 자금초기화 ---------------------
 						$("#1pMoney").val(Pprice[0]);
-						//console.log(Pprice[0]);
 						$("#2pMoney").val(Pprice[1]);
 						$("#3pMoney").val(Pprice[2]);
 						$("#4pMoney").val(Pprice[3]);
+			}else if((Pprice[state] >= lands[2][i])&&(Pturn[state]<1)){
+				alert("아직 1턴미만 입니다.")
+				console.log("1턴미만");
 			}else{
-				alert("돈이 부족합니다.")
-				console.log("돈이 부족합니다");
-				return
+				alert("돈이 부족합니다");
+				console.log("돈부족");
 			}
 	}else if(tower ==2){
 		//빌딩
-		if(Pprice[state] >= lands[4][i]){
+		if( (Pprice[state] >= lands[4][i])&&(Pturn[state]>=2)){
 			console.log("내 자본"+Pprice[state]);
 			console.log("건물가격"+lands[4][i])
+			
+			//건물비용 지불
 			Pprice[state] = Pprice[state] - lands[4][i];
+			//통행료 저장
+			tollFee[state] = tollFee[state]+ lands[4][i]
 				let afterId = "#p" + afterPoint[state];
 					$(afterId).append(Bbuild[tower]);
 						console.log("땅 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
 						//--------------플레이어 자금초기화  ---------------------
 						$("#1pMoney").val(Pprice[0]);
-						//console.log(Pprice[0]);
 						$("#2pMoney").val(Pprice[1]);
 						$("#3pMoney").val(Pprice[2]);
 						$("#4pMoney").val(Pprice[3]);
-			}else{
-				alert("돈이 부족합니다.")
-				console.log("돈이 부족합니다");
+			}else if((Pprice[state] >= lands[4][i])&&(Pturn[state]<2)){
+				alert("아직 2턴미만 입니다.")
+				console.log("2턴미만");
 				return
+			}else{
+				alert("돈이 부족합니다");
+				console.log("돈부족");
 			}
 	}else{
 		//호텔
-		if(Pprice[state] >= lands[5][i]){
+		if( (Pprice[state] >= lands[5][i])&&(Pturn[state]>=3) ){
 			console.log("내 자본"+Pprice[state]);
 			console.log("건물가격"+lands[5][i])
+			
+			//건물비용 지불
 			Pprice[state] = Pprice[state] - lands[5][i];
+			//통행료 저장
+			tollFee[state] = tollFee[state]+ lands[5][i]
+			
 				let afterId = "#p" + afterPoint[state];
 					$(afterId).append(Bbuild[tower]);
 						console.log("땅 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
 						//--------------플레이어 자금초기화 ---------------------
 						$("#1pMoney").val(Pprice[0]);
-						//console.log(Pprice[0]);
 						$("#2pMoney").val(Pprice[1]);
 						$("#3pMoney").val(Pprice[2]);
 						$("#4pMoney").val(Pprice[3]);
-			}else{
-				alert("돈이 부족합니다.")
-				console.log("돈이 부족합니다");
+			}else if((Pprice[state] >= lands[5][i])&&(Pturn[state]<3)){
+				alert("아직 3턴미만 입니다.")
+				console.log("3턴미만");
 				return
+			}else{
+				alert("돈이 부족합니다");
+				console.log("돈부족");
 			}
 	}
 	// 건물 세우기
