@@ -18,10 +18,10 @@ let face6=new Image()
 		
 //------------------------------(위)주사위 이미지 --------------
 // 플레이어별 말 목록 ,
-let player=["<b class='horses' id='1p'>🏇</b>",
-			"<b class='horses' id='2p'>🚣</b>",
-			"<b class='horses' id='3p'>🏊</b>",
-			"<b class='horses' id='4p'>🚴</b>" ];		
+let player=["<b class='horses' id='1p'>🦍</b>",
+			"<b class='horses' id='2p'>🐃</b>",
+			"<b class='horses' id='3p'>🦇</b>",
+			"<b class='horses' id='4p'>🦈</b>" ];		
 //건물 목록
 let Bbuild=["<a class='horses' id='1p'>🚩</a>",
 			"<a class='horses' id='1p'>🏠</a>",
@@ -98,10 +98,10 @@ let tollFee=[[
 
 //출발지점 + 국가 이름, 땅 값, 별장1 값, 별장2 값, 빌딩 , 호텔 값,여부 초기화
 let lands = [[	"출발지",
-					"타이베이","황금열쇠","베이징","마닐라","제주","싱가포르","화금열쇠","카이로","이스탄불","무인도",
-					"아테네","황금열쇠","코펜하겐","스톡홀름","콩코드여객기","베른","황금열쇠","베를린","오타와","사회복지기금 접수처",
-					"부에노스아이레스","황금열쇠","상파올루","시드니","부산","하와이","리스본","퀸엘리자베스호","마드리드","우주여행",
-					"도쿄","컬럼비아호","파리","로마","황금열쇠","런던","뉴욕","사회복지기금","서울"
+					"타이베이","황금열쇠1","베이징","마닐라","제주","싱가포르","황금열쇠2","카이로","이스탄불","무인도",
+					"아테네","황금열쇠3","코펜하겐","스톡홀름","콩코드여객기","베른","황금열쇠4","베를린","오타와","사회복지기금 접수처",
+					"부에노스아이레스","황금열쇠5","상파올루","시드니","부산","하와이","리스본","퀸엘리자베스호","마드리드","우주여행",
+					"도쿄","컬럼비아호","파리","로마","황금열쇠6","런던","뉴욕","사회복지기금","서울"
 				],
 				[	20,	// 땅값 출발지점은 월급을 준다.
 					5, 0, 8, 8,20, 10, 0, 10, 12, 0,
@@ -234,16 +234,24 @@ $(document).ready(function() {
 		$("#3pMoney").val(Pprice[2]);
 		$("#4pMoney").val(Pprice[3]);
 		
+		$("#1pt").val(Pturn[0]);
+		$("#2pt").val(Pturn[1]);
+		$("#3pt").val(Pturn[2]);
+		$("#4pt").val(Pturn[3]);
+		
 		$("#Cturn").val(turn);
 		//------------------게임 시작 후------------------------		
 		
 		// 플레이 버튼 클릭 
 		$("#play").click(function() {	
 			console.log((1+state)+"번마");
-			$("#Cturn").val(turn);
+			
 			//랜덤으로 수를 뽑아  ran에 저장.
 			let ran1=Math.floor((Math.random()*6)+1);// 1~6
 			let ran2=Math.floor((Math.random()*6)+1);
+			
+			/*let ran1 =6;
+			let ran2 =5; testcode*/
 			
 			//주사위 이미지  출력.
 			document.images["mydice1"].src=eval("face"+ran1+".src")
@@ -257,46 +265,15 @@ $(document).ready(function() {
 			$("#dice2").val(ran2);
 			console.log("주사위 합 ::"+Sran)
 			
-			//위치 배열에 위치 지정.
-			if (beforePoint[state] + Sran < 41) {
-				afterPoint[state] = beforePoint[state] + Sran;
-				console.log("이동지점"+afterPoint[state]);
-				
-				
-			} else {
-				//beforePoint[state] + Sran 값이 40보다 크다면
-				afterPoint[state] = beforePoint[state] + Sran - 40;
-				console.log("이동지점"+afterPoint[state]);
-				
-				//각 말들의 턴 회수를 구함.
-					Pturn[state]++;
-					console.log("플레이어별 턴 수 ["+Pturn[state]+"]");
-				
-				//플레이어 월급
-					console.log("입금전 잔액"+Pprice[state]);
-					Pprice[state] +=lands[1][0] ;
-					console.log("월급이 지급되었습니다 입금후 잔액"+Pprice[state]);
-					
-			}
+			//말 이동하는 함수.
+			move(state, Sran);
 			
-			//이동위치.
-			$("#point").val(afterPoint[state]);
-
-			// 말을 이동시킵니다.
-			let afterId = "#p" + afterPoint[state];
-			$(afterId).append(player[state]);
-			
-			// 말을 지움.
-			let beforeId = "#p" + beforePoint[state];
-			$(beforeId).children("b").remove("#"+(state+1)+"p");
-			
-			beforePoint[state] = afterPoint[state];
-			
-			
+			//도시 알림!(소유지 여부 및 건물 구매창)
+			alertCountry(state)
 			//주사위가 더블이라면 주사위 던질 횟수 추가.
 			if(ran1 == ran2){
 				diceNum++;
-				console.log("묻고 더블로 가!"+diceNum);
+				console.log("주사위 더블!!!!"+diceNum);
 				
 			//플레이어가 모두 돌면 다시 1번마부터 아니면 다음 플레이어
 			}else if(state<person-1){	
@@ -330,9 +307,14 @@ $(document).ready(function() {
 				beforePoint[state] = afterPoint[state];
 			}
 				
-			//도시 알림!(소유지 여부 및 건물 구매창)
-			alertCountry(state)
 			
+			//전체 턴 1p~4p까지 돌았을때
+			$("#Cturn").val(turn);
+			//유저별 턴수
+			$("#1pt").val(Pturn[0]);
+			$("#2pt").val(Pturn[1]);
+			$("#3pt").val(Pturn[2]);
+			$("#4pt").val(Pturn[3]);
 			console.log("---------player turn end--------")
 		}); //click
 	})
@@ -345,26 +327,33 @@ function gameStart(person) {
 	//console.log(this)	
 	$("#p1").empty();
 	for (let i = 0; i < person; i++) {
-	//console.log("person[i]"+i);
+	//console.log("person[i]"+i);F
 		$("#p1").append(player[i]);
 	}	
 }
 
 //각각의 도시에 도착했을때 구매 및 경유비를 지출하는 함수.
 function alertCountry(state){
-	//도시
+	console.log("플레이어state"+state);
+	//도시      lands[0].length : 40
 	for(let i=0; i<lands[0].length; i++){
 		if(i == afterPoint[state]){
-			console.log("땅 :"+lands[0][i-1])
+			console.log("i == afterPoint[state]"+i);
+			console.log("beforePoint"+beforePoint);
+			console.log("afterPoint"+afterPoint);
+			console.log("땅 :"+lands[0][i-1]) //<-- 2인이상 게임시 i가 1이 나오는 문제.
 			//alert(lands[0][i-1]+"땅 구매?"); <--이동하기전에 먼저 알림되는 문제
 			//1.알림창으로 어디에 도착했는지 알림.
+			
 			if(lands[6][i-1]==0){
 				console.log("구매가능"); // 소유자가 없을때 
 				$("#buuild").show()
+				
 			}else if(lands[6][i-1]==1){
 				console.log("소유자 있음"); // 소유자가 있을때 (안에서 한번더 조건걸기(내가 산건지 아닌지))
 				$("#buuild").hide();
 				//1.소유자 확인(몇번째 플레이어 인지)//2.비용 지출()
+				
 				for(let n=0; n<4; n++){
 					if(dCity[n][i-1] ==1){
 						Pprice[state]= Pprice[state] - tollFee[n][i-1];
@@ -409,6 +398,7 @@ function buyCountry(tower){
 	if(tower ==0){
 		//땅
 		console.log("건물번호"+tower)
+		//내 자본이 건물구매비용 보다 많다면.
 		if(Pprice[state] >= lands[1][i]){
 			console.log("내 자본"+Pprice[state]);
 			console.log("건물가격"+lands[1][i])
@@ -461,9 +451,11 @@ function buyCountry(tower){
 						$("#2pMoney").val(Pprice[1]);
 						$("#3pMoney").val(Pprice[2]);
 						$("#4pMoney").val(Pprice[3]);
+						
 			}else if((Pprice[state] >= lands[2][i])&&(Pturn[state]<1)){
 				alert("아직 1턴미만 입니다.")
 				console.log("1턴미만");
+				
 			}else{
 				alert("돈이 부족합니다");
 				console.log("돈부족");
@@ -487,10 +479,12 @@ function buyCountry(tower){
 						$("#2pMoney").val(Pprice[1]);
 						$("#3pMoney").val(Pprice[2]);
 						$("#4pMoney").val(Pprice[3]);
+						
 			}else if((Pprice[state] >= lands[4][i])&&(Pturn[state]<2)){
 				alert("아직 2턴미만 입니다.")
 				console.log("2턴미만");
 				return
+				
 			}else{
 				alert("돈이 부족합니다");
 				console.log("돈부족");
@@ -515,10 +509,12 @@ function buyCountry(tower){
 						$("#2pMoney").val(Pprice[1]);
 						$("#3pMoney").val(Pprice[2]);
 						$("#4pMoney").val(Pprice[3]);
+						
 			}else if((Pprice[state] >= lands[5][i])&&(Pturn[state]<3)){
 				alert("아직 3턴미만 입니다.")
 				console.log("3턴미만");
 				return
+				
 			}else{
 				alert("돈이 부족합니다");
 				console.log("돈부족");
@@ -528,4 +524,41 @@ function buyCountry(tower){
 	// 끝
 	console.log("--------------end-------------")
 }
+
+//말이 이동.
+function move(state, Sran) {
+	//위치 배열에 위치 지정.
+	if (beforePoint[state] + Sran < 41) {
+		afterPoint[state] = beforePoint[state] + Sran;
+		console.log("이동지점"+afterPoint[state]);
+		
+		
+	} else {
+		//beforePoint[state] + Sran 값이 40보다 크다면
+		afterPoint[state] = beforePoint[state] + Sran - 40;
+		console.log("이동지점"+afterPoint[state]);
+		
+		//각 말들의 턴 회수를 구함.
+			Pturn[state]++;
+			console.log("플레이어별 턴 수 ["+Pturn[state]+"]");
+		
+		//플레이어 월급
+			console.log("입금전 잔액"+Pprice[state]);
+			Pprice[state] +=lands[1][0] ;
+			console.log("월급이 지급되었습니다 입금후 잔액"+Pprice[state]);
+			
+	}
 	
+	//이동위치.
+	$("#point").val(afterPoint[state]);
+
+	// 말을 이동시킵니다.
+	let afterId = "#p" + afterPoint[state];
+	$(afterId).append(player[state]);
+	
+	// 말을 지움.
+	let beforeId = "#p" + beforePoint[state];
+	$(beforeId).children("b").remove("#"+(state+1)+"p");
+	
+	beforePoint[state] = afterPoint[state];
+}

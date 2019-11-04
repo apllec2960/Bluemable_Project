@@ -25,16 +25,16 @@
 	<!-- 주사위 값 및 이동위치 출력판 -->
 		<div class="diceBoard">
 				현재 :<input type="text" id="Cturn">턴
-			<h5>
+			<div>
 				<img id="mydice1" class="dice_size" name="mydice1" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif> 
 				<img id="mydice2" class="dice_size" name="mydice2" src=http://www.blueb.co.kr/SRC/javascript/image1/d1.gif>
 			<hr>
 				주사위 : <input id="dice1" style="width:40px"; type="text" /><input id="dice2" style="width:40px"; type="text" /> 
 				이동 지점 : <input id="point" style="width:40px"; type="text" readonly/>
 				<input id="play" type="button" value="🎲"  class="btn-circle" readonly/>
-			</h5>
+			</div>
 			 <!--건물 땅구매 및 건물 구매여부-->
-			<h5 id="buuild">
+			<div id="buuild">
 				<p>0T:도시 1T:별장 2T:빌딩 3T:호텔 구매가능</p>
 				<p>	
 					<button type="button" class="btn btn-warning"
@@ -50,7 +50,7 @@
 						id="hotel">호텔🏰</button>
 					&nbsp;
 				</p>
-			</h5>
+			</div>
 		</div>
 		</div>
 		
@@ -61,10 +61,10 @@
 			<table class="table table-bordered table-striped" style="background-color: white">
 				<tr>
 					<td>플레이어</td>
-					<td>1번마 : 🏇	</td>
-					<td>2번마 : 🚣</td>
-					<td>3번마 : 🏊</td>
-					<td>4번마 : 🚴</td>
+					<td>1번마 : 🦍 <input type="text" id="1pt" readonly></td>
+					<td>2번마 : 🐃 <input type="text" id="2pt" readonly></td>
+					<td>3번마 : 🦇 <input type="text" id="3pt" readonly></td>
+					<td>4번마 : 🦈 <input type="text" id="4pt" readonly></td>
 				</tr>
 				<tr>
 					<td>자  본</td>
@@ -247,10 +247,10 @@
 							<td width="14%" class="no_border">
 								<span id="p1"> 
 									<!-- 1p~4p 말 -->
-										<b class="horses" id="1p">🏇</b> 
-										<b class="horses" id="2p">🚣</b>
-										<b class="horses" id="3p">🏊</b> 
-										<b class="horses" id="4p">🚴</b>
+										<b class="horses" id="1p">🦍</b> 
+										<b class="horses" id="2p">🐃</b>
+										<b class="horses" id="3p">🦇</b> 
+										<b class="horses" id="4p">🦈</b>
 								</span>
 							</td>
 						</tr>
