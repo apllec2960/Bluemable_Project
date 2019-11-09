@@ -63,6 +63,11 @@ let tower = 0;
 //1p~4p 각각의 턴 회수
 let Pturn =[0,0,0,0];
 
+//1:1번주사위 2:2번주사위 S:주사위 합계
+let ran1 = 0;
+let ran2 = 0;
+let Sran = 0;
+
 //플레이어가 갖고있는 도시 구분
 let dCity = [[	
 				0, //1p (1: 구매한 도시)
@@ -169,9 +174,6 @@ let lands = [[	"출발지",
 				]
 ];
 
-let ran1 = 0;
-let ran2 = 0;
-
 // ----------진행 준비 -------------------------
 $(document).ready(function() {
 		
@@ -187,35 +189,20 @@ $(document).ready(function() {
 		$("#play").click(function() {	
 			console.log((1+state)+"번 플레이어");
 			
-			//랜덤으로 수를 뽑아  ran에 저장.
-			ran1=Math.floor((Math.random()*6)+1);// 1~6
-			ran2=Math.floor((Math.random()*6)+1);
-			
-			//주사위 이미지  출력.
-			document.images["mydice1"].src=eval("face"+ran1+".src")
-			document.images["mydice2"].src=eval("face"+ran2+".src")
-			
-			//Sran : 주사위 수 총합.
-			let Sran = ran1 + ran2;
-			console.log("주사위 합 ::"+Sran)
-			
-			//#dice <-html 출력화면에 주사위 수를 나타냄.
-			$("#dice1").val(ran1);
-			$("#dice2").val(ran2);
+			//주사위를 던지는 함수.+ 주사위 이미지와 주사위 값을 페이지에 출력.
+			diceThrow()
 			
 			//말 이동하는 함수.
-			move(state, Sran);
-			
+			move();
+			console.log("alertCountry전"+state);
 			//도시 알림!(소유지 여부 및 건물 구매창)
 			alertCountry()
-
-			//전체 턴 1p~4p까지 돌았을때
-			$("#Cturn").val(turn);
-			//유저별 턴수
-			$("#1pt").val(Pturn[0]);
-			$("#2pt").val(Pturn[1]);
-			$("#3pt").val(Pturn[2]);
-			$("#4pt").val(Pturn[3]);
+			console.log("alertCountry후"+state);
+			//더블이면 한번더 아니면 다음턴으로 넘김.
+			stateUp()
+			console.log("alertCo후 stateUp"+state);
+			//전체 턴과 플레이어 턴수를 보여줌.
+			turnDisplay()
 			
 			console.log("---------player turn end--------")
 		}); //click

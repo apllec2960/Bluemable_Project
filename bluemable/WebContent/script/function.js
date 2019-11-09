@@ -57,19 +57,10 @@
 		})
 		
 		//--------------플레이어 전광판 ---------------------
-		$("#1pMoney").val(Pprice[0]);
-		$("#2pMoney").val(Pprice[1]);
-		$("#3pMoney").val(Pprice[2]);
-		$("#4pMoney").val(Pprice[3]);
-		
-		$("#1pt").val(Pturn[0]);
-		$("#2pt").val(Pturn[1]);
-		$("#3pt").val(Pturn[2]);
-		$("#4pt").val(Pturn[3]);
-		
-		$("#Cturn").val(turn);
+		moneyDisplay();
+		turnDisplay();
 
-//게임 시작 
+//게임 시작 - 플레이어들을 시작위치에 배치.
 function gameStart(person) {
 	//console.log("person"+person) 
 	$("#gameAlert").addClass("no_hover");
@@ -94,7 +85,7 @@ function alertCountry(){
 			
 			if(lands[6][i-1]==0){
 				console.log("구매가능"); // 소유자가 없을때 
-				$("#buuild").show()
+				$("#buuild").show();
 			
 			}else if(lands[6][i-1]==1){
 				console.log("소유자 있음"); // 소유자가 있을때 (안에서 한번더 조건걸기(내가 산건지 아닌지))
@@ -151,8 +142,7 @@ function buyCountry(tower){
 	
 	// 땅 구매 비용지불
 	if(tower ==0){
-		//땅
-		console.log("건물번호"+tower)
+		console.log("도시구매")
 		//내 자본이 건물구매비용 보다 많다면.
 		if(Pprice[state] >= lands[1][i]){
 			console.log("내 자본"+Pprice[state]);
@@ -175,37 +165,9 @@ function buyCountry(tower){
 						console.log("위치"+afterId);
 						console.log("땅 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
-						//--------------플레이어 자금초기화  ---------------------
-						$("#1pMoney").val(Pprice[0]);
-						$("#2pMoney").val(Pprice[1]);
-						$("#3pMoney").val(Pprice[2]);
-						$("#4pMoney").val(Pprice[3]);
+						//플레이어 자금초기화 
+						moneyDisplay();
 				
-				//주사위 더블, 차례 넘김 <ㅡ--- 함수변경 예정, 다른 조건문에도 추가해야 함..
-				if(state<(maxState-1)){	
-					if(ran1 == ran2){
-						diceNum++;
-						console.log("주사위 더블!");
-					}else{
-					//diceNum=0;
-					//턴을 넘긴다.
-						state++;
-						console.log("시방");
-					}
-				}else{
-					if(ran1 == ran2){
-						diceNum++;
-						console.log("주사위 더블!");
-					}else{
-					//diceNum=0;
-					//턴 수
-					turn++;
-					console.log("전체 턴수 ::"+ turn);
-					//1p에게 턴을 넘긴다
-					state=0;
-					console.log("슈방");
-					}
-				}
 			}else{
 				console.log("내 자본"+Pprice[state]);
 				console.log("건물가격"+lands[1][i])
@@ -226,13 +188,10 @@ function buyCountry(tower){
 			tollFee[state] = tollFee[state]+ lands[2][i]
 				let afterId = "#p" + afterPoint[state];
 					$(afterId).append(Bbuild[tower]);
-						console.log("땅 구매완료")
+						console.log("별장 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
-						//--------------플레이어 자금초기화 ---------------------
-						$("#1pMoney").val(Pprice[0]);
-						$("#2pMoney").val(Pprice[1]);
-						$("#3pMoney").val(Pprice[2]);
-						$("#4pMoney").val(Pprice[3]);
+						//플레이어 자금초기화
+						moneyDisplay();
 						
 			}else if((Pprice[state] >= lands[2][i])&&(Pturn[state]<1)){
 				alert("아직 1턴미만 입니다.")
@@ -254,13 +213,10 @@ function buyCountry(tower){
 			tollFee[state] = tollFee[state]+ lands[4][i]
 				let afterId = "#p" + afterPoint[state];
 					$(afterId).append(Bbuild[tower]);
-						console.log("땅 구매완료")
+						console.log("빌딩 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
-						//--------------플레이어 자금초기화  ---------------------
-						$("#1pMoney").val(Pprice[0]);
-						$("#2pMoney").val(Pprice[1]);
-						$("#3pMoney").val(Pprice[2]);
-						$("#4pMoney").val(Pprice[3]);
+						//플레이어 자금초기화
+						moneyDisplay();
 						
 			}else if((Pprice[state] >= lands[4][i])&&(Pturn[state]<2)){
 				alert("아직 2턴미만 입니다.")
@@ -284,13 +240,10 @@ function buyCountry(tower){
 			
 				let afterId = "#p" + afterPoint[state];
 					$(afterId).append(Bbuild[tower]);
-						console.log("땅 구매완료")
+						console.log("호텔 구매완료")
 						console.log("구매후 잔액"+Pprice[state]);
-						//--------------플레이어 자금초기화 ---------------------
-						$("#1pMoney").val(Pprice[0]);
-						$("#2pMoney").val(Pprice[1]);
-						$("#3pMoney").val(Pprice[2]);
-						$("#4pMoney").val(Pprice[3]);
+						//플레이어 자금초기화
+						moneyDisplay();
 						
 			}else if((Pprice[state] >= lands[5][i])&&(Pturn[state]<3)){
 				alert("아직 3턴미만 입니다.")
@@ -308,7 +261,7 @@ function buyCountry(tower){
 }
 
 //말이 이동.
-function move(state, Sran) {
+function move() {
 	//위치 배열에 위치 지정.
 	if (beforePoint[state] + Sran < 41) {
 		afterPoint[state] = beforePoint[state] + Sran;
@@ -345,40 +298,56 @@ function move(state, Sran) {
 	beforePoint[state] = afterPoint[state];
 }
 
-function stateNext(){
-	let afterId = "#p" + afterPoint[state];
-	$(afterId).append(Bbuild[tower]);
-		console.log("위치"+afterId);
-		console.log("땅 구매완료")
-		console.log("구매후 잔액"+Pprice[state]);
-		//--------------플레이어 자금초기화  ---------------------
-		$("#1pMoney").val(Pprice[0]);
-		$("#2pMoney").val(Pprice[1]);
-		$("#3pMoney").val(Pprice[2]);
-		$("#4pMoney").val(Pprice[3]);
+//플레이어 각각의 돈을 보여줌.
+function moneyDisplay(){
+	$("#1pMoney").val(Pprice[0]);
+	$("#2pMoney").val(Pprice[1]);
+	$("#3pMoney").val(Pprice[2]);
+	$("#4pMoney").val(Pprice[3]);
+}
+
+//플레이어 개인 턴수와 전체 턴수를 보여줌.
+function turnDisplay(){
+	//전체 턴 1p~4p까지 돌았을때
+	$("#Cturn").val(turn);
+	//유저별 턴수
+	$("#1pt").val(Pturn[0]);
+	$("#2pt").val(Pturn[1]);
+	$("#3pt").val(Pturn[2]);
+	$("#4pt").val(Pturn[3]);
+}
+
+//차례가 끝나면 다음 플레이어로 바뀌는 함수
+function stateUp(){
+	if(ran1 == ran2){
+		diceNum++
+		console.log("주사위 더블!");
 		
-		if(state<(maxState-1)){	
-			if(ran1 == ran2){
-				diceNum++;
-				console.log("주사위 더블!");
-			}else{
-			//diceNum=0;
-			//턴을 넘긴다.
-				state++;
-				console.log("시방");
-			}
+	}else{
+		if(state<(maxState-1)){
+			state++;
 		}else{
-			if(ran1 == ran2){
-				diceNum++;
-				console.log("주사위 더블!");
-			}else{
-			//diceNum=0;
-			//턴 수
-			turn++;
-			console.log("전체 턴수 ::"+ turn);
-			//1p에게 턴을 넘긴다
 			state=0;
-			console.log("슈방");
-			}
+			turn++;
 		}
+	}
+}
+
+//주사위를 던지는 함수.+ 주사위 이미지와 주사위 값을 페이지에 출력.
+function diceThrow(){
+	//랜덤으로 수를 뽑아  ran에 저장.
+	ran1=Math.floor((Math.random()*6)+1);// 1~6
+	ran2=Math.floor((Math.random()*6)+1);
+	
+	//주사위 이미지  출력.
+	document.images["mydice1"].src=eval("face"+ran1+".src")
+	document.images["mydice2"].src=eval("face"+ran2+".src")
+	
+	//Sran : 주사위 수 총합.
+	Sran = ran1 + ran2;
+	console.log("주사위 합 ::"+Sran)
+	
+	//#dice <-html 출력화면에 주사위 수를 나타냄.
+	$("#dice1").val(ran1);
+	$("#dice2").val(ran2);
 }
