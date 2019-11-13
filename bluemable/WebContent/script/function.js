@@ -121,6 +121,7 @@ function alertCountry(){
 
 // 플레이어는 건물 선택 및 구매.
 function buyCountry(tower){
+
 	//alertCountry(state);
 	console.log("buyCounter() 실행");
 	console.log("state"+state)
@@ -167,7 +168,7 @@ function buyCountry(tower){
 						console.log("구매후 잔액"+Pprice[state]);
 						//플레이어 자금초기화 
 						moneyDisplay();
-				
+
 			}else{
 				console.log("내 자본"+Pprice[state]);
 				console.log("건물가격"+lands[1][i])
@@ -322,7 +323,6 @@ function stateUp(){
 	if(ran1 == ran2){
 		diceNum++
 		console.log("주사위 더블!");
-		
 	}else{
 		if(state<(maxState-1)){
 			state++;
@@ -333,11 +333,15 @@ function stateUp(){
 	}
 }
 
+
+
 //주사위를 던지는 함수.+ 주사위 이미지와 주사위 값을 페이지에 출력.
 function diceThrow(){
 	//랜덤으로 수를 뽑아  ran에 저장.
 	ran1=Math.floor((Math.random()*6)+1);// 1~6
 	ran2=Math.floor((Math.random()*6)+1);
+
+
 	
 	//주사위 이미지  출력.
 	document.images["mydice1"].src=eval("face"+ran1+".src")
@@ -351,3 +355,44 @@ function diceThrow(){
 	$("#dice1").val(ran1);
 	$("#dice2").val(ran2);
 }
+
+//사회복지기금 접수처(돈 받음.)
+function welfare() {
+	if(afterPoint[state] == 21){
+		console.log("접수복지처에 도착하였습니다. 돈을 받아가세요!");
+		console.log("모금 금액 :"+ Pprice[1][20]);
+		
+		//플레이어 돈 추가.
+		Pprice[state] += lands[1][20];
+		//모금 값 초기화
+		lands[1][20] = 0;
+	}
+}
+
+//사회복지 기금(돈 냄.)
+function welfareFund(){
+	if(afterPoint[state] == 38){
+		console.log("모금하세요! 15만!");
+		
+		//플레이어 15만 지불
+		Pprice[state] -= 15;
+		//모금함에 15만 저장.
+		lands[1][38] += 15;
+		console.log("모금 금액 : "+lands[1][38]);
+	}
+}
+
+//우주여행
+function spaceSpace(){
+
+	if(afterPoint[state] == 31){ 
+		console.log("space"+spaceTurn); 
+		return;
+	}
+	if(beforePoint[state] == 31){
+	
+		
+		
+	}
+}
+

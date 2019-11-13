@@ -68,6 +68,8 @@ let ran1 = 0;
 let ran2 = 0;
 let Sran = 0;
 
+let space =0;
+let spaceTurn =0;
 //플레이어가 갖고있는 도시 구분
 let dCity = [[	
 				0, //1p (1: 구매한 도시)
@@ -168,7 +170,7 @@ let lands = [[	"출발지",
 				[	
 					2, //구매여부 (0:빈땅 1:소유지 땅 2:구매 불가)
 					0, 2, 0, 0, 0, 0, 2, 0, 0, 2,
-					0, 2, 0, 0, 0, 0, 2, 0, 0, 0,
+					0, 2, 0, 0, 0, 0, 2, 0, 0, 2,
 					0, 2, 0, 0, 0, 0, 0, 0, 0, 2,
 					0, 0, 0, 0, 2, 0, 0, 2, 0
 				]
@@ -189,21 +191,57 @@ $(document).ready(function() {
 		$("#play").click(function() {	
 			console.log((1+state)+"번 플레이어");
 			
+			if(beforePoint[state] == 31){
+				console.log("우주여행 가자!!");
+				console.log("space1"+spaceTurn);
+				space = prompt('위치를 입력하세요')
+				alert(space);
+				space = parseInt(space);
+				afterPoint[state] = space;
+				console.log(afterPoint[state]+"이동");
+				
+				//이동위치.
+				$("#point").val(afterPoint[state]);
+
+				// 말을 이동시킵니다.
+				let afterId = "#p" + afterPoint[state];
+				$(afterId).append(player[state]);
+				
+				// 말을 지움.
+				let beforeId = "#p" + beforePoint[state];
+				$(beforeId).children("b").remove("#"+(state+1)+"p");
+				
+				beforePoint[state] = afterPoint[state];
+				console.log("이동위치"+ afterPoint[state]);
+				state++;
+				return;
+			}
 			//주사위를 던지는 함수.+ 주사위 이미지와 주사위 값을 페이지에 출력.
 			diceThrow()
 			
 			//말 이동하는 함수.
 			move();
 			console.log("alertCountry전"+state);
+			
+			//복지기금 수령
+			welfare()
+			//복지기금 지불
+			welfareFund()
+			
+			//우주정류장
+			spaceSpace()
+			
 			//도시 알림!(소유지 여부 및 건물 구매창)
 			alertCountry()
 			console.log("alertCountry후"+state);
+			
 			//더블이면 한번더 아니면 다음턴으로 넘김.
 			stateUp()
 			console.log("alertCo후 stateUp"+state);
-			//전체 턴과 플레이어 턴수를 보여줌.
-			turnDisplay()
 			
+			//전체 턴과 플레이어 턴수를 보여줌.
+			turnDisplay();
+			moneyDisplay();
 			console.log("---------player turn end--------")
 		}); //click
 	})
