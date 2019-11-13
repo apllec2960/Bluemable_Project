@@ -29,6 +29,7 @@
 			tower = 0;
 			console.log("도시 구매!");
 			buyCountry(tower)
+			console.log("!!"+state);
 			$("#buuild").hide();
 		})
 		
@@ -81,12 +82,14 @@ function alertCountry(){
 			console.log("i == afterPoint[state]"+i);
 			console.log("위치비교"+beforePoint);
 			console.log("땅 :"+lands[0][i-1]) 
+			console.log("state"+state)
 			//1.알림창으로 어디에 도착했는지 알림.
 			
 			if(lands[6][i-1]==0){
 				console.log("구매가능"); // 소유자가 없을때 
 				$("#buuild").show();
 			
+				
 			}else if(lands[6][i-1]==1){
 				console.log("소유자 있음"); // 소유자가 있을때 (안에서 한번더 조건걸기(내가 산건지 아닌지))
 				$("#buuild").hide();
@@ -121,7 +124,8 @@ function alertCountry(){
 
 // 플레이어는 건물 선택 및 구매.
 function buyCountry(tower){
-
+	
+	
 	//alertCountry(state);
 	console.log("buyCounter() 실행");
 	console.log("state"+state)
@@ -382,17 +386,63 @@ function welfareFund(){
 	}
 }
 
-//우주여행
-function spaceSpace(){
+//행운카드 기능
+function luckyCard(){
+	if(beforePoint[state]==3 || beforePoint[state]==8 || beforePoint[state]==13 || beforePoint[state]==18 || beforePoint[state]==23 ||beforePoint[state]==36 ){
+		//행운카드 보이기.
+		$("#luckCard").show();
+		console.log("행운카드")
+		//0~2
+		card = Math.floor(Math.random()*2);
+		document.images["luckCard"].src=eval("luckCard"+card+".src")
+		
+	//우주여행.	
+	if(card ==0){
+		afterPoint[state] =31;
+		
+		//이동위치.
+		$("#point").val(afterPoint[state]);
 
-	if(afterPoint[state] == 31){ 
-		console.log("space"+spaceTurn); 
+		// 말을 이동시킵니다.
+		let afterId = "#p" + afterPoint[state];
+		$(afterId).append(player[state]);
+		
+		// 말을 지움.
+		let beforeId = "#p" + beforePoint[state];
+		$(beforeId).children("b").remove("#"+(state+1)+"p");
+		
+		beforePoint[state] = afterPoint[state];
+		console.log("이동위치"+ afterPoint[state]);
+		state++;
 		return;
-	}
-	if(beforePoint[state] == 31){
-	
 		
+		}
 		
+	if(card ==1){
+		afterPoint[state] =11;
+		//이동위치.
+		$("#point").val(afterPoint[state]);
+
+		// 말을 이동시킵니다.
+		let afterId = "#p" + afterPoint[state];
+		$(afterId).append(player[state]);
+		
+		// 말을 지움.
+		let beforeId = "#p" + beforePoint[state];
+		$(beforeId).children("b").remove("#"+(state+1)+"p");
+		
+		beforePoint[state] = afterPoint[state];
+		console.log("이동위치"+ afterPoint[state]);
+		state++;
+		return;
+		}
 	}
 }
+
+
+
+
+
+
+
 

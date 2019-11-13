@@ -16,7 +16,16 @@ let face5=new Image()
 let face6=new Image()
 	face6.src="http://www.blueb.co.kr/SRC/javascript/image1/d6.gif"
 		
-//------------------------------(위)주사위 이미지 --------------
+//------------------------------(위)주사위 이미지--------------
+//우주여행
+let luckCard0 = new Image()
+	luckCard0.src="/bluemable/images/card1.jpg";
+//무인도
+let luckCard1 = new Image()
+	luckCard1.src="/bluemable/images/card2.jpg";
+
+//--------------------------(위 행운카드)----------------
+
 // 플레이어별 말 목록 ,
 let player=["<b class='horses' id='1p'>🦍</b>",
 			"<b class='horses' id='2p'>🐃</b>",
@@ -68,6 +77,7 @@ let ran1 = 0;
 let ran2 = 0;
 let Sran = 0;
 
+let card =0;
 let space =0;
 let spaceTurn =0;
 //플레이어가 갖고있는 도시 구분
@@ -185,12 +195,19 @@ $(document).ready(function() {
 	  	//건물 구매창 숨김.
 		$("#buuild").hide();
 		
+		//행운카드 숨김.
+		$("#luckCard").hide();
+		
 		//------------------게임 시작 ------------------------		
 		
 		// 플레이 버튼 클릭 
 		$("#play").click(function() {	
+			//행운카드 숨김.
+			$("#luckCard").hide();
+			
 			console.log((1+state)+"번 플레이어");
 			
+			//우주정류장
 			if(beforePoint[state] == 31){
 				console.log("우주여행 가자!!");
 				console.log("space1"+spaceTurn);
@@ -216,24 +233,20 @@ $(document).ready(function() {
 				state++;
 				return;
 			}
+			
 			//주사위를 던지는 함수.+ 주사위 이미지와 주사위 값을 페이지에 출력.
 			diceThrow()
 			
 			//말 이동하는 함수.
 			move();
-			console.log("alertCountry전"+state);
-			
+			luckyCard();
 			//복지기금 수령
 			welfare()
 			//복지기금 지불
 			welfareFund()
 			
-			//우주정류장
-			spaceSpace()
-			
 			//도시 알림!(소유지 여부 및 건물 구매창)
 			alertCountry()
-			console.log("alertCountry후"+state);
 			
 			//더블이면 한번더 아니면 다음턴으로 넘김.
 			stateUp()
