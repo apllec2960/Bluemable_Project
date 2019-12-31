@@ -19,10 +19,10 @@ let face6=new Image()
 //------------------------------(위)주사위 이미지--------------
 //우주여행
 let luckCard0 = new Image()
-	luckCard0.src="/bluemable/images/card1.jpg";
+	luckCard0.src="/bluemarble/images/card1.jpg";
 //무인도
 let luckCard1 = new Image()
-	luckCard1.src="/bluemable/images/card2.jpg";
+	luckCard1.src="/bluemarble/images/card2.jpg";
 
 //--------------------------(위 행운카드)----------------
 
@@ -190,7 +190,7 @@ let lands = [[	"출발지",
 $(document).ready(function() {
 		
 		//부루마블 기능 연결
-	  	$.getScript("/bluemable/script/function.js");  
+	  	$.getScript("/bluemarble/script/function.js");  
 	  	
 	  	//건물 구매창 숨김.
 		$("#buuild").hide();

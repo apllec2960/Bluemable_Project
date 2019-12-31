@@ -1,5 +1,5 @@
 .marble_board {
-	background-image: url("/bluemable/images/b2.png");
+	background-image: url("/bluemarble/images/b2.png");
 	background-repeat: no-repeat;
 	background-position: center top;
 	background-size: 100%;
@@ -62,4 +62,12 @@ td:hover  {
 	text-align: center;
 	background-color: silver;
 	width : 350px;
+	font-weight: bold;
 }
+
+ body{
+	
+background: linear-gradient(90deg, rgb(0, 54, 102), rgb(0, 40, 80));
+
+ 	
+ }

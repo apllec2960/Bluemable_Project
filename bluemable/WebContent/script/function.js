@@ -417,7 +417,8 @@ function luckyCard(){
 		return;
 		
 		}
-		
+	
+	//무인도
 	if(card ==1){
 		afterPoint[state] =11;
 		//이동위치.
